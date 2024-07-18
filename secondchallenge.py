@@ -3,10 +3,12 @@ import argparse
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("input_file")
+    parser.add_argument("output_file")
     args = parser.parse_args()
 
     try:
         with open(args.input_file, "r") as input_file:
+            with open(args.output_file, "w") as output_file:
                 games = {} # key: game, value: count
                 for line in input_file:
                     lists = line.strip("\n").split("|")
@@ -28,6 +30,7 @@ def main():
                 for count in games.values():
                     total_games += count
                 print(total_games)
+                output_file.write(str(total_games))
     except FileNotFoundError:
         print("File does not exist.")
     except:
